@@ -4,6 +4,7 @@
   "chain_id": 61999,
   "deployer": "0x2C8EB5dB1105A85BE66BadafeD88D10cF393CDD8",
   "source_file": "contracts/PolicyLifecycleResolver.py",
+  "source_commit": "519fa21c632f583c5e34e3757eb3cdbcced0be62",
   "contract_address": "0xBC1Ae52C008692b1FA8Ae1D572365451bcD23978",
   "deployment_transaction": "0x60cb60f8562958126986ef67934b67ac23d0351501b0b6ec7d3507090e8ac046",
   "explorer_url": "https://explorer-studio.genlayer.com/address/0xBC1Ae52C008692b1FA8Ae1D572365451bcD23978",

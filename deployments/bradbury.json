@@ -4,6 +4,7 @@
   "chain_id": 4221,
   "deployer": "0x2C8EB5dB1105A85BE66BadafeD88D10cF393CDD8",
   "source_file": "contracts/PolicyLifecycleResolver.py",
+  "source_commit": "519fa21c632f583c5e34e3757eb3cdbcced0be62",
   "contract_address": "0x368b4583979221C2CA9F85ad20f15fEdfA17A39F",
   "deployment_transaction": "0xca965d76b72a233b76cd420747668dc01ddec633973facb774243fd2134a5b7f",
   "explorer_url": "https://explorer-bradbury.genlayer.com/address/0x368b4583979221C2CA9F85ad20f15fEdfA17A39F",
@@ -21,14 +22,33 @@
   "batch_submitted_before_finality_check": true,
   "batch_started_utc": "2026-08-12T21:32:28.301Z",
   "batch_completed_utc": "2026-08-12T21:33:22.920Z",
-  "protocol_status": "ACCEPTED",
+  "protocol_status": "FINALIZED",
   "deployment_execution": "FINISHED_WITH_RETURN",
   "deployment_execution_verified": true,
   "state_verified": true,
-  "finalized_verified": false,
+  "finalized_verified": true,
+  "deployment_finalized_utc": "2026-08-12T22:02:51.042Z",
+  "deployment_receipt_summary": {
+    "protocol_status": "FINALIZED",
+    "consensus_result": "AGREE",
+    "execution_result": "FINISHED_WITH_RETURN",
+    "round": "0",
+    "votes_committed": "5",
+    "votes_revealed": "5",
+    "validator_votes": [
+      "AGREE",
+      "AGREE",
+      "AGREE",
+      "AGREE",
+      "AGREE"
+    ],
+    "validator_count": 5
+  },
   "consensus_batch_submitted_before_finality_check": true,
+  "consensus_batch_started_utc": "2026-08-12T21:33:27.315Z",
+  "consensus_batch_completed_utc": "2026-08-12T21:33:40.782Z",
   "consensus_test_transaction": "0x5d25d34fc86716334b50634e79db072f5e23131cde4e6e72a26cbb0d0ee1aa50",
-  "consensus_test_status": "ACCEPTED",
+  "consensus_test_status": "FINALIZED",
   "consensus_test_execution": "FINISHED_WITH_RETURN",
   "consensus_test_state": {
     "attempts": 1,
@@ -47,5 +67,27 @@
     "state": "RESOLVED",
     "terminal": true
   },
-  "consensus_finalized_verified": false
+  "consensus_finalized_verified": true,
+  "consensus_finalized_utc": "2026-08-12T22:03:49.922Z",
+  "consensus_receipt_summary": {
+    "protocol_status": "FINALIZED",
+    "consensus_result": "AGREE",
+    "execution_result": "FINISHED_WITH_RETURN",
+    "round": "0",
+    "votes_committed": "5",
+    "votes_revealed": "5",
+    "validator_votes": [
+      "TIMEOUT",
+      "AGREE",
+      "DETERMINISTIC_VIOLATION",
+      "AGREE",
+      "AGREE"
+    ],
+    "validator_count": 5
+  },
+  "storage_capture_warning_detected": false,
+  "stderr_inspected_empty": true,
+  "accepted_verification_completed_utc": "2026-08-12T21:34:53.747Z",
+  "finality_verified_utc": "2026-08-12T22:04:47.995Z",
+  "receipt_audit_utc": "2026-08-12T22:07:18.725Z"
 }

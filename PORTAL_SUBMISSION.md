@@ -6,7 +6,7 @@
 
 ## Notes / Description
 
-Built and deployed an MIT-licensed Policy Lifecycle Resolver, a standalone GenLayer Intelligent Contract for bills, regulations, governance proposals, and public policies. Deployment freezes an allowlisted lifecycle taxonomy, required-clause tests, official HTTPS sources, cutoff, maximum wait, and spec ID. The leader fetches official records; validators independently re-fetch them and require exact agreement on stage, terminal flag, clause vector, effective date, coverage, and reason code. Source outages remain WAIT, contradictions become CONTESTED, cancellation/max-wait become VOID, and terminal settlement is replay-safe. Includes a pinned GenVM runner, direct/adversarial tests, full schema validation, security audit, test matrix, and finalized StudioNet deployment plus consensus evidence. It does not custody funds or provide legal advice.
+Built and deployed an MIT-licensed Policy Lifecycle Resolver, a standalone GenLayer Intelligent Contract for bills, regulations, governance proposals, and public policies. Deployment freezes an allowlisted lifecycle taxonomy, required-clause tests, official HTTPS sources, cutoff, maximum wait, and spec ID. The leader fetches official records; validators independently re-fetch them and require exact agreement on stage, terminal flag, clause vector, effective date, coverage, and reason code. Source outages remain WAIT, contradictions become CONTESTED, cancellation/max-wait become VOID, and terminal settlement is replay-safe. Includes a pinned GenVM runner, direct/adversarial tests, full schema validation, security audit, test matrix, and finalized StudioNet/Bradbury deployment and consensus evidence. It does not custody funds or provide legal advice.
 
 ## Evidence to add
 
