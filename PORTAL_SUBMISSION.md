@@ -14,11 +14,11 @@ Policy Lifecycle Resolver is a reusable GenLayer Intelligent Contract for bills,
 1. GitHub repository — https://github.com/JWattjr/policy-lifecycle-resolver
 2. Release commit `4c2dec62d3b9bebd64ae6d7a3aedf47bed8e658e` — https://github.com/JWattjr/policy-lifecycle-resolver/commit/4c2dec62d3b9bebd64ae6d7a3aedf47bed8e658e
 3. Contract source — https://github.com/JWattjr/policy-lifecycle-resolver/blob/4c2dec62d3b9bebd64ae6d7a3aedf47bed8e658e/contracts/PolicyLifecycleResolver.py
-4. Focused tests — https://github.com/JWattjr/policy-lifecycle-resolver/blob/4c2dec62d3b9bebd64ae6d7a3aedf47bed8e658e/tests/test_policy_lifecycle.py
-5. Security audit — https://github.com/JWattjr/policy-lifecycle-resolver/blob/4c2dec62d3b9bebd64ae6d7a3aedf47bed8e658e/docs/SECURITY_AUDIT.md
-6. Test matrix — https://github.com/JWattjr/policy-lifecycle-resolver/blob/4c2dec62d3b9bebd64ae6d7a3aedf47bed8e658e/docs/TEST_MATRIX.md
-7. StudioNet release checklist — https://github.com/JWattjr/policy-lifecycle-resolver/blob/4c2dec62d3b9bebd64ae6d7a3aedf47bed8e658e/docs/RELEASE_CHECKLIST.md
-8. Current StudioNet evidence manifest — https://github.com/JWattjr/policy-lifecycle-resolver/blob/4c2dec62d3b9bebd64ae6d7a3aedf47bed8e658e/deployments/studionet.json
+4. Focused tests — https://github.com/JWattjr/policy-lifecycle-resolver/blob/6ab7dd1ad34bd172d53f78d6eb884b767075e93c/tests/test_policy_lifecycle.py
+5. Security audit — https://github.com/JWattjr/policy-lifecycle-resolver/blob/6ab7dd1ad34bd172d53f78d6eb884b767075e93c/docs/SECURITY_AUDIT.md
+6. Test matrix — https://github.com/JWattjr/policy-lifecycle-resolver/blob/6ab7dd1ad34bd172d53f78d6eb884b767075e93c/docs/TEST_MATRIX.md
+7. StudioNet release checklist — https://github.com/JWattjr/policy-lifecycle-resolver/blob/6ab7dd1ad34bd172d53f78d6eb884b767075e93c/docs/RELEASE_CHECKLIST.md
+8. Current StudioNet evidence manifest — https://github.com/JWattjr/policy-lifecycle-resolver/blob/6ab7dd1ad34bd172d53f78d6eb884b767075e93c/deployments/studionet.json
 9. Published-before-effective contract — https://explorer-studio.genlayer.com/address/0xe93660c3d3FaF91444899A3E76A622B0e0A6E3dc
 10. Published-before-effective deployment — https://explorer-studio.genlayer.com/transactions/0x5d96930202603d9d60523a36afc6bd2bf4d5f6dbe42ac4901098d2c6b8dfc0e7
 11. Published-before-effective resolve — https://explorer-studio.genlayer.com/transactions/0x6cc7c00506e8ff00b9439262cd7f74eea9f8e348f067265c0263328811aaa686
