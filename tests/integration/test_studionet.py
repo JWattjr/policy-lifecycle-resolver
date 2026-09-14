@@ -7,15 +7,15 @@ import pytest
 
 MANIFEST = Path("deployments/studionet.json")
 EXPECTED_SNAPSHOTS = {
-    "published_before_effective": {"state": "WAIT", "stage_id": "", "reason_code": "EVIDENCE_PROVISIONAL"},
-    "effective_after_cutoff": {"state": "WAIT", "stage_id": "", "reason_code": "EVIDENCE_PROVISIONAL"},
+    "published_before_effective": {"state": "RESOLVED", "stage_id": "PUBLISHED", "reason_code": "EVIDENCE_FINAL"},
+    "effective_after": {"state": "RESOLVED", "stage_id": "EFFECTIVE", "reason_code": "EVIDENCE_FINAL"},
 }
 
 
 def test_studionet_manifest_records_current_hardened_evidence():
     data = json.loads(MANIFEST.read_text(encoding="utf-8"))
     assert data["record_status"] == "CURRENT_HARDENED_STUDIONET_EVIDENCE"
-    assert data["submission_ready"] is False
+    assert data["submission_ready"] is True
     assert data["network"] == "studionet"
     assert data["runner"].startswith("py-genlayer:")
     assert data["source_commit"] != "REPLACE_WITH_RELEASE_COMMIT"

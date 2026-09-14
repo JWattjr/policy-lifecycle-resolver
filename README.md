@@ -88,7 +88,7 @@ Financial Assistance (Federal Register Doc. 2024-07496):
 
 ~~~json
 {
-  "policy_id": "omb-guidance-2024-07496-before-effective-v2",
+  "policy_id": "omb-guidance-2024-07496-before-effective-v3",
   "jurisdiction": "United States federal administrative guidance",
   "stages": [
     {"id":"PUBLISHED","label":"Published","kind":"PUBLISHED","terminal":false},
@@ -116,17 +116,18 @@ Financial Assistance (Federal Register Doc. 2024-07496):
     "complexity_policy":"UNSUPPORTED_UNRESOLVED",
     "conflict_policy":"CONTESTED"
   },
-  "spec_id": "omb-guidance-2024-07496-before-effective-v2"
+  "spec_id": "omb-guidance-2024-07496-before-effective-v3"
 }
 ~~~
 
 The companion post-effective snapshot uses the same sources and rules with
-`policy_id=omb-guidance-2024-07496-effective-after-v2`,
+`policy_id=omb-guidance-2024-07496-effective-after-v3`,
 `as_of=2024-10-02T00:00:00Z`, and the `EFFECTIVE` stage. The live StudioNet
-attempts below conservatively returned `WAIT/EVIDENCE_PROVISIONAL`; they do not
-prove a terminal two-snapshot demonstration. The direct tests cover the
-successful canonical paths with mocks, while the public records remain available
-for an independently reviewed retry.
+attempts below demonstrate both a terminal `PUBLISHED` result before the
+effective date and a terminal `EFFECTIVE` result after it. The direct tests
+also cover the successful canonical paths with mocks. The first post-effective
+live attempt was `CONTESTED`; its retry converged to `RESOLVED`, which is
+recorded in the current StudioNet manifest.
 
 ## Checks and release evidence
 
@@ -145,21 +146,18 @@ Bradbury records are retained as explicitly historical pre-hardening evidence.
 
 ## Current StudioNet evidence (2026-09-14)
 
-The deployed source commit used by the two corrected deployments is
-`213ad01` (the configured remote's `main` ref resolves to this commit).
-Read-back with `genlayer code` matched the normalized source SHA-256
-`c622adbe196a7e3ee9e74ab5e1c0cbb2cefd68792420ef87bcd54e6542d93e2e`.
-The GitHub web repository and commit URLs currently return anonymous HTTP 404,
-so public source hosting is not yet verified for Portal use.
+The current release is commit
+`4c2dec62d3b9bebd64ae6d7a3aedf47bed8e658e`. Read-back with
+`gen_getContractCode` from both contracts matches the normalized source
+SHA-256 `885d0a2c4d80b0b3b72213dae426ed9f4b83995a4c467da689bc59e6d0e63914`
+(38,972 bytes). The repository and release files are publicly reachable.
 
-- Published-before-effective snapshot: [contract](https://explorer-studio.genlayer.com/address/0xca2d559b98D7B8f9A5d2E33EA44Ae396854b67cE), [deployment receipt](https://explorer-studio.genlayer.com/transactions/0x2d29f1b1004915ab42b9cc110c59b1e65c5a1a3b16c1d3ee40d1f9302c5aa3b2), and [resolve receipt](https://explorer-studio.genlayer.com/transactions/0x0d341bdec867e4f04aae166bc8efa59171bd472e98acabd0481344399f5b32c1). Both receipts are `FINALIZED` with leader `SUCCESS`; protocol consensus is `MAJORITY_AGREE`. `get_state()` is `WAIT/EVIDENCE_PROVISIONAL`, `attempts=1`, not terminal.
-- Effective-after snapshot: [contract](https://explorer-studio.genlayer.com/address/0xcceCB3b68fb13Af8532fd9e767b29B4608109C4d), [deployment receipt](https://explorer-studio.genlayer.com/transactions/0x1a2a5e29b9c7ad173b255446896b0eb3c8e6a3952738209235edfe411249bdfd), and [resolve receipt](https://explorer-studio.genlayer.com/transactions/0x6b1a394cade4bfa8b1670ee478d22884c39b960f52de5d06df7efa2e688b4e41). Both receipts are `FINALIZED` with leader `SUCCESS`; protocol consensus is `MAJORITY_AGREE`. `get_state()` is `WAIT/EVIDENCE_PROVISIONAL`, `attempts=1`, not terminal.
+- Published-before-effective snapshot: [contract](https://explorer-studio.genlayer.com/address/0xe93660c3d3FaF91444899A3E76A622B0e0A6E3dc), [deployment receipt](https://explorer-studio.genlayer.com/transactions/0x5d96930202603d9d60523a36afc6bd2bf4d5f6dbe42ac4901098d2c6b8dfc0e7), and [resolve receipt](https://explorer-studio.genlayer.com/transactions/0x6cc7c00506e8ff00b9439262cd7f74eea9f8e348f067265c0263328811aaa686). Both receipts are `FINALIZED` with leader `SUCCESS`; protocol consensus is `MAJORITY_AGREE`. `get_state()` is terminal `RESOLVED`, stage `PUBLISHED`, event date `2024-04-22`, all clauses `SATISFIED`.
+- Effective-after snapshot: [contract](https://explorer-studio.genlayer.com/address/0x21CD1989906e2418FDd7EfC0f3b4CE17FF2c90B4), [deployment receipt](https://explorer-studio.genlayer.com/transactions/0x727ff8702bbaab91b5f8f551d7efd15e44668ce827b523221c7b4cf2f97188b6), and [final resolve receipt](https://explorer-studio.genlayer.com/transactions/0x19f3cc041bfee0a006d601e232de8b9199406332209ea9ad3c6ad8e5aadfb882). Both receipts are `FINALIZED` with leader `SUCCESS`; protocol consensus is `MAJORITY_AGREE`. `get_state()` is terminal `RESOLVED`, stage `EFFECTIVE`, event/effective date `2024-10-01`, all clauses `SATISFIED`. The prior finalized `CONTESTED` attempt and retry are retained in the manifest.
 
-The exact constructor arguments, vote arrays, state read-backs, source sizes,
-and the initial disagreement probe are in `deployments/studionet.json`. The
-older pre-hardening StudioNet record is preserved as
-`deployments/studionet-historical-2026-08-12.json`; `deployments/bradbury.json`
-is historical and is not current submission evidence. The working tree has an
-uncommitted prompt clarification (not included in the deployed source), so this
-candidate is not submit-ready until that change is intentionally published and
-deployed, and a terminal live resolution is verified.
+The exact constructor arguments, validator vote arrays, state read-backs,
+source sizes, and prior disagreement are in `deployments/studionet.json`.
+`deployments/studionet-historical-2026-08-12.json` and `deployments/bradbury.json`
+are explicitly historical and are not current submission evidence. This
+release has no pending source or deployment blocker; Portal submission itself
+remains an external user action.

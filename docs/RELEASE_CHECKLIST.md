@@ -25,7 +25,13 @@ mainnet/Bradbury use.
    label. Add only public source, test, audit, evidence, and receipt links to
    the Portal form.
 
-Current candidate status: **NO**. The published `213ad01` deployments have
-finalized receipts but both live resolves stored `WAIT/EVIDENCE_PROVISIONAL`;
-the current worktree also contains an uncommitted prompt clarification, and
-anonymous GitHub URLs currently return 404 until the repository is made public.
+Current release status: **YES for evidence preparation**. Commit
+`4c2dec62d3b9bebd64ae6d7a3aedf47bed8e658e` is public, and both current
+StudioNet contracts read back the normalized source hash
+`885d0a2c4d80b0b3b72213dae426ed9f4b83995a4c467da689bc59e6d0e63914`.
+The before-effective snapshot is `RESOLVED/PUBLISHED` at
+`0xe93660c3d3FaF91444899A3E76A622B0e0A6E3dc`; the post-effective snapshot is
+`RESOLVED/EFFECTIVE` at `0x21CD1989906e2418FDd7EfC0f3b4CE17FF2c90B4` after a
+recorded retry from `CONTESTED`. The exact receipts and state read-backs are in
+`deployments/studionet.json`. Portal submission remains a user action; no
+Bradbury evidence is current.

@@ -12,7 +12,7 @@
   "deployment_transaction": "REPLACE_WITH_DEPLOYMENT_TX_HASH",
   "explorer_deployment_url": "REPLACE_WITH_VERIFIED_EXPLORER_TRANSACTION_URL",
   "constructor_args": [
-    "omb-guidance-2024-07496-before-effective-v2",
+    "omb-guidance-2024-07496-before-effective-v3",
     "United States federal administrative guidance",
     "[{\"id\":\"EFFECTIVE\",\"label\":\"Effective\",\"kind\":\"EFFECTIVE\",\"terminal\":false},{\"id\":\"PUBLISHED\",\"label\":\"Published\",\"kind\":\"PUBLISHED\",\"terminal\":false}]",
     "[{\"id\":\"document\",\"text\":\"The official record identifies Federal Register Doc No. 2024-07496.\"},{\"id\":\"effective_date\",\"text\":\"The official record states an effective date of 2024-10-01.\"},{\"id\":\"publication_date\",\"text\":\"The official record states publication on 2024-04-22.\"}]",
@@ -21,7 +21,7 @@
     "REPLACE_WITH_EARLIEST_ASSESSMENT_TIME",
     "REPLACE_WITH_MAX_WAIT_TIME",
     "{\"id\":\"historical-snapshot-v1\",\"model\":\"HISTORICAL_SNAPSHOT\",\"event_date_policy\":\"EXPLICIT_EVENT_DATE_REQUIRED\",\"later_publication_policy\":\"ALLOW_IF_EXPLICIT_EVENT_DATE\",\"undated_policy\":\"UNRESOLVED\",\"future_effective_policy\":\"NOT_EFFECTIVE_AT_AS_OF\",\"complexity_policy\":\"UNSUPPORTED_UNRESOLVED\",\"conflict_policy\":\"CONTESTED\"}",
-    "omb-guidance-2024-07496-before-effective-v2"
+    "omb-guidance-2024-07496-before-effective-v3"
   ],
   "deployment_status": "REPLACE_WITH_PROTOCOL_STATUS",
   "deployment_execution": "REPLACE_WITH_EXECUTION_STATUS",

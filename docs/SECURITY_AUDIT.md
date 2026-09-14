@@ -2,10 +2,10 @@
 
 Audit scope: `contracts/PolicyLifecycleResolver.py`
 Review date: 2026-09-14
-Status: hardened release candidate with fresh StudioNet evidence recorded in
-`deployments/studionet.json`; submit-ready is **NO** because the live historical
-snapshots remained non-terminal and the latest prompt clarification is
-uncommitted.
+Status: hardened StudioNet release with current evidence recorded in
+`deployments/studionet.json`; source and both terminal historical snapshots are
+verified, so the evidence package is submit-ready (**YES**). Portal submission
+itself remains an external user action.
 
 ## Decision boundary
 
@@ -40,7 +40,7 @@ commencement, or multiple versions are `CONTESTED / UNSUPPORTED_COMPLEXITY`.
 | PL-03 | Medium | Passage, signature, publication, and effectiveness were not distinguished. | Frozen stages now carry semantic kinds; `EFFECTIVE` requires a supported date reached by `as_of`, while future effective dates remain visible on earlier stages. |
 | PL-04 | Medium | Empty, malformed, and truncated evidence were not represented explicitly. | Added bounded evidence records and conservative `UNKNOWN`/`WAIT` handling. |
 | PL-05 | Medium | Tests did not cover temporal sides of `as_of`, complex policy records, or every state field mutation. | Added targeted direct tests, captured-validator mutations, boundary tests, replay checks, and storage invariants. |
-| PL-06 | Low | Documentation overstated prompt-injection protection and live deployment readiness. | Documentation now separates mechanical transport/content checks from unproven semantic prompt-injection resistance and labels all pre-release receipts historical. |
+| PL-06 | Low | Documentation overstated prompt-injection protection and live deployment readiness. | Documentation separates mechanical transport/content checks from unproven semantic prompt-injection resistance, and distinguishes current StudioNet receipts from historical records. |
 
 ## Checks performed
 
@@ -49,25 +49,28 @@ commencement, or multiple versions are `CONTESTED / UNSUPPORTED_COMPLEXITY`.
   validation.
 - `genvm-lint schema contracts/PolicyLifecycleResolver.py` reports a 10-parameter
   constructor and two public methods (`resolve` and `get_state`).
-- The focused direct and AST suites cover 51 passing tests in this release
-  candidate. Direct mocks exercise contract validation and captured validator
-  behavior; they do not establish real-model prompt-injection resistance.
+- The focused direct, storage, and StudioNet-manifest suites cover 53 passing
+  tests with one expected skip in this release. Direct mocks exercise contract
+  validation and captured validator behavior; they do not establish real-model
+  prompt-injection resistance.
 - Fresh StudioNet deployments and resolve transactions are recorded for both
-  OMB snapshots. All four receipts are `FINALIZED`; leader execution is
-  `SUCCESS`; protocol results are `MAJORITY_AGREE` (agreement is not unanimity).
-  The published deployment source read-back matches commit `213ad01` and
-  normalized SHA-256
-  `c622adbe196a7e3ee9e74ab5e1c0cbb2cefd68792420ef87bcd54e6542d93e2e`.
-- The before-effective and post-effective `get_state()` read-backs are both
-  `OPEN`-origin states with one accepted attempt and stored
-  `WAIT/EVIDENCE_PROVISIONAL`; no terminal `RESOLVED` result was demonstrated.
-  The first full-HTML probe is retained as a separate non-submission probe.
-- The current worktree contains an eight-line prompt clarification that is not
-  in the deployed source and is not committed/published. The old StudioNet and
-  Bradbury records remain historical and do not prove this source revision.
-- The configured Git remote resolves `main` to `213ad01` with authenticated Git,
-  but anonymous HTTP requests to the repository and file URLs return 404. Public
-  source hosting is therefore unverified and blocks Portal readiness.
+  OMB snapshots. All deployment and final-resolution receipts are `FINALIZED`;
+  leader execution is `SUCCESS`; protocol results are `MAJORITY_AGREE` (agreement
+  is not unanimity). The post-effective first attempt was `CONTESTED`; its
+  retry is recorded and resolved to the final `EFFECTIVE` result.
+- The current source is commit
+  `4c2dec62d3b9bebd64ae6d7a3aedf47bed8e658e`. `gen_getContractCode` read-back
+  from both current contracts matches normalized SHA-256
+  `885d0a2c4d80b0b3b72213dae426ed9f4b83995a4c467da689bc59e6d0e63914`.
+- The before-effective `get_state()` read-back is `RESOLVED/PUBLISHED` with
+  event date `2024-04-22`; the post-effective read-back is
+  `RESOLVED/EFFECTIVE` with event/effective date `2024-10-01`. All required
+  clauses are `SATISFIED` and both snapshots retain the frozen rule ID.
+- The public GitHub repository, release commit, source, test, audit, matrix,
+  checklist, and manifest URLs were verified with anonymous HTTP requests.
+  `deployments/studionet-historical-2026-08-12.json` and
+  `deployments/bradbury.json` remain explicitly historical and do not prove the
+  current source revision.
 
 ## Residual risks
 
