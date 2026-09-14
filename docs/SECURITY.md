@@ -1,20 +1,55 @@
 # Security model
-
+The contract is permissionless to assess and holds no funds. It does not provide
+legal advice, authenticate publishers, implement jurisdiction-specific legal
+advice, or pay downstream consumers. Payout, caller authorization, appeals, and
+finality handling remain downstream responsibilities.
 ## Threats addressed
 
-- **Malicious leader:** validators independently re-fetch evidence and recompute consequential fields.
-- **Prompt injection:** source text is bounded and explicitly treated as untrusted data.
-- **Source outage and drift:** missing evidence fails closed; substantive validator disagreement prevents accepted consensus.
-- **Premature resolution:** frozen UTC deadlines are checked deterministically before nondeterministic work.
-- **Replay and double settlement:** terminal/idempotent state transitions prevent duplicate consequences.
-- **Unsafe evidence URLs:** userinfo, private/internal hosts, literal private IPs, IPv6 literals, whitespace, and non-default ports are rejected.
+- **Malicious leader:** validators independently fetch the frozen source list,
+  inspect the same frozen historical context, and recompute every consequential
+  result field.
+- **Schema and type confusion:** exact model and accepted-result schemas reject
+  extra/missing fields, invented stages or clause IDs, malformed dates, and
+  Python bool/int equality traps.
+- **Premature resolution:** `as_of`, `cutoff`, and `max_wait` are normalized
+  timezone-aware UTC values. Before `cutoff` no nondeterministic assessment is
+  attempted; at or after `max_wait` the result is deterministic `VOID`.
+- **Replay/double settlement:** terminal contract states (`RESOLVED` and
+  `VOID`) return the stored state without another assessment or attempt count.
+- **Unsafe evidence URLs:** HTTPS, userinfo, private/internal hosts, literal
+  private IPs, whitespace, and non-default ports are rejected at construction.
+- **Evidence transport errors:** non-200, empty, malformed, failed, and
+  truncated responses are explicitly marked incomplete. All unusable sources
+  force `WAIT / SOURCE_UNAVAILABLE`; missing facts never become
+  `UNSATISFIED`.
 
-## Contract-specific boundary
+## Temporal semantics
 
-Validators independently fetch the frozen sources and agree exactly on lifecycle state, allowlisted stage, terminal flag, ordered clause map, effective date, source coverage, and deterministic reason code.
+The release freezes one `HISTORICAL_SNAPSHOT` at `as_of`; it is not a continuous
+monitor. Every leader and validator receives the exact `as_of`, assessment time,
+policy identity, jurisdiction, specification, and temporal-rule ID. Event dates
+must be explicitly supported and no later than `as_of`. A later publication can
+describe an earlier event only when its content gives that event date. An
+undated current-status page cannot establish a historical stage. An
+`EFFECTIVE` stage requires an explicitly supported effective date no later than
+`as_of`; a future effective date may remain attached to a resolved `SIGNED` or
+`PUBLISHED` snapshot. Passage, signature, publication, and effectiveness are
+distinct stage kinds. Amendments, partial commencement, multiple versions, and
+conflicting records become an explicit unresolved/contested outcome under the
+frozen rules.
 
-`OPEN → WAIT/CONTESTED/RESOLVED/VOID`; `WAIT` and `CONTESTED` are retryable, while `RESOLVED` and `VOID` are terminal. A frozen maximum-wait timestamp forces `VOID` without an LLM call.
+## Prompt-injection and publisher limitations
 
-## Residual risks
+Source text is bounded and labeled as data, and the prompt tells the model to
+ignore embedded commands. These are mechanical transport/content safeguards;
+mocked tests do **not** guarantee semantic prompt-injection resistance against
+real models. HTTPS reachability is not proof of publisher authority, DNS
+integrity, or legal authenticity. Consumers must choose authoritative URLs and
+wait for GenLayer finality before using a result.
 
-HTTPS reachability does not prove publisher authority. DNS rebinding remains possible without a deployment-specific domain allowlist. Dynamic sources can legitimately cause validator disagreement. LLM classifications can remain unresolved on ambiguous language. Downstream payout code is out of scope and must consume only finalized state with its own idempotency guard.
+## Scope
+
+The contract is permissionless to assess and holds no funds. It does not provide
+legal advice, authenticate publishers, implement jurisdiction-specific legal
+advice, or pay downstream consumers. Payout, caller authorization, appeals, and
+finality handling remain downstream responsibilities.

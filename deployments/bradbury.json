@@ -1,4 +1,6 @@
 {
+  "record_status": "HISTORICAL_PRE_HARDENING",
+  "historical_note": "This record predates the explicit as_of temporal model and exact canonical result boundary; it is not deployment evidence for the current source.",
   "contract": "PolicyLifecycleResolver",
   "network": "testnet-bradbury",
   "chain_id": 4221,

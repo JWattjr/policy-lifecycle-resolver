@@ -1,15 +1,34 @@
-# Test matrix
+# Policy Lifecycle Resolver test matrix
 
-| Requirement | Direct test | Integration evidence |
+The focused suite uses offline GenLayer direct mode and captured validator
+execution. It is intended to exercise actual contract and validator behavior;
+it is not a substitute for live receipts or a guarantee of real-model
+prompt-injection resistance.
+
+| Requirement | Direct coverage | Live / integration evidence |
 | --- | --- | --- |
-| Allowlisted lifecycle stage and exact clause vector | Direct mocked GenVM | StudioNet/Bradbury evidence where applicable |
-| All-source outage remains retryable WAIT | Direct mocked GenVM | StudioNet/Bradbury evidence where applicable |
-| Malicious leader disagreement is rejected | Direct mocked GenVM | StudioNet/Bradbury evidence where applicable |
-| Maximum wait deterministically records VOID | Direct mocked GenVM | StudioNet/Bradbury evidence where applicable |
-| Finalized StudioNet deployment and resolve transaction | Direct mocked GenVM | StudioNet/Bradbury evidence where applicable |
-| Nondeterministic storage isolation | AST closure regression | Receipt inspected for successful execution |
-| Public URL controls | Constructor rejection paths | Frozen official GovInfo HTTPS source |
-| Prompt injection boundary | Untrusted evidence schema/prompt | Independent validator re-fetch |
-| Replay/finality safety | Terminal/idempotent transition checks | Consumers instructed to wait for finality |
+| Exact model schema and canonical 14-field result | Extra/missing keys, wrong wrappers, invalid enums and types | Consensus receipt and source read-back |
+| Bool/int and malformed date rejection | Bool flags/status/coverage, ISO-8601 and YYYY-MM-DD cases | Receipt execution result |
+| Frozen identity and specification binding | Mutation of policy, jurisdiction, spec, rule ID, `as_of`, assessment time | `get_state()` and manifest constructor args |
+| Frozen stage taxonomy | Duplicate/invented stage IDs, exact stage keys, unsupported kinds, rejected/withdrawn terminal rules | Constructor schema/read-back |
+| Passage/signature/publication/effectiveness distinction | Signed snapshot, effective snapshot, future effective date | Two StudioNet snapshots of one official policy |
+| Historical temporal semantics | Event before/after `as_of`, later publication with explicit earlier event, undated page | Official GovInfo/Federal Register source links |
+| Required clauses | Exact clause IDs, unknown vector remains `UNKNOWN`/`WAIT` | Canonical stored clause map |
+| Source handling | Non-200, empty, malformed, truncated and partial evidence | Independent validator re-fetch |
+| Conflict/provisional/complexity/cancellation | Explicit `CONTESTED`, `WAIT`, and `VOID` mappings | Consensus receipt if demonstrated |
+| Assessment boundaries | Before cutoff, exact cutoff, exact max-wait | Deployment/resolution timestamps |
+| Replay and snapshot semantics | Terminal idempotency, unchanged state after later warp | Repeated `get_state()` read-back |
+| Nondeterministic storage safety | AST closure test and accepted-result storage invariant | Execution-success receipt |
 
-StudioNet evidence must show both protocol `FINALIZED` and leader execution `SUCCESS`; a lifecycle label alone is not a passing test. Bradbury evidence records all five deployment hashes before any finality polling.
+## Commands
+
+~~~powershell
+$env:PYTHONIOENCODING = "utf-8"
+genvm-lint check contracts/PolicyLifecycleResolver.py
+genvm-lint schema contracts/PolicyLifecycleResolver.py
+python -m pytest tests/test_policy_lifecycle.py tests/test_nondet_storage.py -q
+~~~
+
+The final live section is populated only from independently checked StudioNet
+receipts. Protocol `FINALIZED` and leader execution `SUCCESS` are recorded
+separately; a finality label alone is not evidence of successful execution.

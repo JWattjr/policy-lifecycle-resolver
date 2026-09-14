@@ -8,6 +8,7 @@ EXPECTED_STATE = {"state":"RESOLVED","stage_id":"ENACTED"}
 
 def test_bradbury_manifest_records_finalized_successful_execution():
     data = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    assert data["record_status"] == "HISTORICAL_PRE_HARDENING"
     assert data["network"] == "testnet-bradbury"
     assert data["batch_submitted_before_finality_check"] is True
     assert data["consensus_batch_submitted_before_finality_check"] is True
