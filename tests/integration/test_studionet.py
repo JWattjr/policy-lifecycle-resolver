@@ -7,14 +7,15 @@ import pytest
 
 MANIFEST = Path("deployments/studionet.json")
 EXPECTED_SNAPSHOTS = {
-    "published_before_effective": {"state": "RESOLVED", "stage_id": "PUBLISHED"},
-    "effective_after_cutoff": {"state": "RESOLVED", "stage_id": "EFFECTIVE"},
+    "published_before_effective": {"state": "WAIT", "stage_id": "", "reason_code": "EVIDENCE_PROVISIONAL"},
+    "effective_after_cutoff": {"state": "WAIT", "stage_id": "", "reason_code": "EVIDENCE_PROVISIONAL"},
 }
 
 
-def test_studionet_manifest_records_current_hardened_snapshots():
+def test_studionet_manifest_records_current_hardened_evidence():
     data = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    assert data["record_status"] == "CURRENT_HARDENED_STUDIONET"
+    assert data["record_status"] == "CURRENT_HARDENED_STUDIONET_EVIDENCE"
+    assert data["submission_ready"] is False
     assert data["network"] == "studionet"
     assert data["runner"].startswith("py-genlayer:")
     assert data["source_commit"] != "REPLACE_WITH_RELEASE_COMMIT"
@@ -27,6 +28,7 @@ def test_studionet_manifest_records_current_hardened_snapshots():
         assert snapshot["resolution_status"] == "FINALIZED"
         assert snapshot["resolution_execution"] in ("SUCCESS", "FINISHED_WITH_RETURN")
         assert snapshot["state_verified"] is True
+        assert snapshot["resolution_consensus_result"] == "MAJORITY_AGREE"
         for field, value in expected.items():
             assert snapshot["resolution_state"][field] == value
 

@@ -45,6 +45,9 @@ the stored stage’s `terminal` flag describes the policy stage and may be false
 for a terminal resolved snapshot. Terminal calls are idempotent and do not
 increase `attempts`. Assessment is permissionless.
 
+The exact StudioNet publication, deployment, finality, source-identity, and
+read-back procedure is in [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md).
+
 ## Consensus and evidence boundary
 
 The model observation must contain exactly eight keys:
@@ -64,6 +67,11 @@ truncated material is not automatically a negative fact: it may resolve only if
 validators agree that the remaining content supports every required claim;
 otherwise clauses remain `UNKNOWN` and the result stays `WAIT`.
 
+Structured official records may expose explicit dates as `publication_date`,
+`effective_on`, or `effective_date`; the prompt maps those fields to the frozen
+publication/effective stage kinds. That mapping is an interpretation aid, not a
+publisher-authentication claim.
+
 Source text is untrusted data and prompts explicitly reject embedded commands.
 That is a boundary and audit aid, not a guarantee of real-model prompt-injection
 resistance. HTTPS and hostname checks do not prove publisher authority or remove
@@ -80,7 +88,7 @@ Financial Assistance (Federal Register Doc. 2024-07496):
 
 ~~~json
 {
-  "policy_id": "omb-guidance-2024-07496",
+  "policy_id": "omb-guidance-2024-07496-before-effective-v2",
   "jurisdiction": "United States federal administrative guidance",
   "stages": [
     {"id":"PUBLISHED","label":"Published","kind":"PUBLISHED","terminal":false},
@@ -92,8 +100,8 @@ Financial Assistance (Federal Register Doc. 2024-07496):
     {"id":"effective_date","text":"The official record states an effective date of 2024-10-01."}
   ],
   "sources": [
-    "https://www.govinfo.gov/content/pkg/FR-2024-04-22/html/2024-07496.htm",
-    "https://www.federalregister.gov/documents/2024/04/22/2024-07496/guidance-for-federal-financial-assistance"
+    "https://www.federalregister.gov/api/v1/documents/2024-07496.json?fields%5B%5D=document_number&fields%5B%5D=effective_on&fields%5B%5D=publication_date&fields%5B%5D=title&fields%5B%5D=dates",
+    "https://www.federalregister.gov/api/v1/documents/2024-07496.json?fields%5B%5D=document_number&fields%5B%5D=effective_on&fields%5B%5D=publication_date&fields%5B%5D=title&fields%5B%5D=dates&fields%5B%5D=abstract"
   ],
   "as_of": "2024-06-01T00:00:00Z",
   "cutoff": "2026-01-01T00:00:00Z",
@@ -108,14 +116,17 @@ Financial Assistance (Federal Register Doc. 2024-07496):
     "complexity_policy":"UNSUPPORTED_UNRESOLVED",
     "conflict_policy":"CONTESTED"
   },
-  "spec_id": "omb-guidance-2024-07496-v1"
+  "spec_id": "omb-guidance-2024-07496-before-effective-v2"
 }
 ~~~
 
 The companion post-effective snapshot uses the same sources and rules with
-`as_of=2024-10-02T00:00:00Z` and the `EFFECTIVE` stage. The two snapshots are
-the intended temporal demonstration; the model supplies dates from the public
-records rather than from contract storage.
+`policy_id=omb-guidance-2024-07496-effective-after-v2`,
+`as_of=2024-10-02T00:00:00Z`, and the `EFFECTIVE` stage. The live StudioNet
+attempts below conservatively returned `WAIT/EVIDENCE_PROVISIONAL`; they do not
+prove a terminal two-snapshot demonstration. The direct tests cover the
+successful canonical paths with mocks, while the public records remain available
+for an independently reviewed retry.
 
 ## Checks and release evidence
 
@@ -131,3 +142,24 @@ prompt-injection resistance or every live network outcome. The current
 StudioNet release manifest and receipts are recorded in
 `deployments/studionet.json` after fresh deployment. The earlier StudioNet and
 Bradbury records are retained as explicitly historical pre-hardening evidence.
+
+## Current StudioNet evidence (2026-09-14)
+
+The deployed source commit used by the two corrected deployments is
+`213ad01` (the configured remote's `main` ref resolves to this commit).
+Read-back with `genlayer code` matched the normalized source SHA-256
+`c622adbe196a7e3ee9e74ab5e1c0cbb2cefd68792420ef87bcd54e6542d93e2e`.
+The GitHub web repository and commit URLs currently return anonymous HTTP 404,
+so public source hosting is not yet verified for Portal use.
+
+- Published-before-effective snapshot: [contract](https://explorer-studio.genlayer.com/address/0xca2d559b98D7B8f9A5d2E33EA44Ae396854b67cE), [deployment receipt](https://explorer-studio.genlayer.com/transactions/0x2d29f1b1004915ab42b9cc110c59b1e65c5a1a3b16c1d3ee40d1f9302c5aa3b2), and [resolve receipt](https://explorer-studio.genlayer.com/transactions/0x0d341bdec867e4f04aae166bc8efa59171bd472e98acabd0481344399f5b32c1). Both receipts are `FINALIZED` with leader `SUCCESS`; protocol consensus is `MAJORITY_AGREE`. `get_state()` is `WAIT/EVIDENCE_PROVISIONAL`, `attempts=1`, not terminal.
+- Effective-after snapshot: [contract](https://explorer-studio.genlayer.com/address/0xcceCB3b68fb13Af8532fd9e767b29B4608109C4d), [deployment receipt](https://explorer-studio.genlayer.com/transactions/0x1a2a5e29b9c7ad173b255446896b0eb3c8e6a3952738209235edfe411249bdfd), and [resolve receipt](https://explorer-studio.genlayer.com/transactions/0x6b1a394cade4bfa8b1670ee478d22884c39b960f52de5d06df7efa2e688b4e41). Both receipts are `FINALIZED` with leader `SUCCESS`; protocol consensus is `MAJORITY_AGREE`. `get_state()` is `WAIT/EVIDENCE_PROVISIONAL`, `attempts=1`, not terminal.
+
+The exact constructor arguments, vote arrays, state read-backs, source sizes,
+and the initial disagreement probe are in `deployments/studionet.json`. The
+older pre-hardening StudioNet record is preserved as
+`deployments/studionet-historical-2026-08-12.json`; `deployments/bradbury.json`
+is historical and is not current submission evidence. The working tree has an
+uncommitted prompt clarification (not included in the deployed source), so this
+candidate is not submit-ready until that change is intentionally published and
+deployed, and a terminal live resolution is verified.

@@ -2,8 +2,10 @@
 
 Audit scope: `contracts/PolicyLifecycleResolver.py`
 Review date: 2026-09-14
-Status: hardened release candidate; live proof is recorded only after the fresh
-StudioNet deployment described in `deployments/studionet.json`.
+Status: hardened release candidate with fresh StudioNet evidence recorded in
+`deployments/studionet.json`; submit-ready is **NO** because the live historical
+snapshots remained non-terminal and the latest prompt clarification is
+uncommitted.
 
 ## Decision boundary
 
@@ -50,10 +52,22 @@ commencement, or multiple versions are `CONTESTED / UNSUPPORTED_COMPLEXITY`.
 - The focused direct and AST suites cover 51 passing tests in this release
   candidate. Direct mocks exercise contract validation and captured validator
   behavior; they do not establish real-model prompt-injection resistance.
-- Fresh StudioNet deployment, finality, execution-success receipts, validator
-  votes, source identity, and read-back state are **pending until recorded in
-  `deployments/studionet.json`**. No Bradbury or old StudioNet record is proof of
-  this source revision.
+- Fresh StudioNet deployments and resolve transactions are recorded for both
+  OMB snapshots. All four receipts are `FINALIZED`; leader execution is
+  `SUCCESS`; protocol results are `MAJORITY_AGREE` (agreement is not unanimity).
+  The published deployment source read-back matches commit `213ad01` and
+  normalized SHA-256
+  `c622adbe196a7e3ee9e74ab5e1c0cbb2cefd68792420ef87bcd54e6542d93e2e`.
+- The before-effective and post-effective `get_state()` read-backs are both
+  `OPEN`-origin states with one accepted attempt and stored
+  `WAIT/EVIDENCE_PROVISIONAL`; no terminal `RESOLVED` result was demonstrated.
+  The first full-HTML probe is retained as a separate non-submission probe.
+- The current worktree contains an eight-line prompt clarification that is not
+  in the deployed source and is not committed/published. The old StudioNet and
+  Bradbury records remain historical and do not prove this source revision.
+- The configured Git remote resolves `main` to `213ad01` with authenticated Git,
+  but anonymous HTTP requests to the repository and file URLs return 404. Public
+  source hosting is therefore unverified and blocks Portal readiness.
 
 ## Residual risks
 
